@@ -1,0 +1,65 @@
+.left {
+  width: 38%;
+  padding-left: 3rem;
+}
+
+.title {
+  font-family: 'Rochester', cursive;
+  font-size: 96px;
+  padding: 10px 10px 4rem;
+  background: linear-gradient(
+    90deg,
+    #4dd4f7 18.8%,
+    #9090fb 40.43%,
+    #ff6b81 60.14%,
+    #fbdf63 79.36%,
+    #d9f0f4 97.15%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.tagline {
+  font-family: 'Avenir Lt Std';
+  font-size: 56px;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.text {
+  color: #6a6a6a;
+  margin-bottom: 2rem;
+}
+.register {
+  border: none;
+  background: none;
+  color: white;
+  padding: 7px 2.6rem;
+}
+
+.right {
+  display: flex;
+  column-gap: 10px;
+}
+.first {
+  display: grid;
+  grid-template-columns: 235px;
+  row-gap: 10px;
+  grid-template-rows: 249px 183px 176px;
+}
+.second {
+  display: grid;
+  grid-template-columns: 235px;
+  row-gap: 10px;
+  grid-template-rows: 349px 269px;
+}
+.third {
+  display: grid;
+  grid-template-columns: 235px;
+  row-gap: 10px;
+  grid-template-rows: 175px 260px 176px;
+}
+.image {
+  width: 235px;
+  max-height: 100%;
+  object-fit: cover;
+}

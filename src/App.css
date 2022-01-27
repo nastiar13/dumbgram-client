@@ -1,38 +1,358 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.body {
+  width: 100%;
+  height: 130vh;
+  background: #0b0b0b;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.chat {
+  width: 100%;
+  height: 100vh;
+  background: #0b0b0b;
+}
+.btn18 {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Avenir Lt Std';
+}
+.btn_dark {
+  background: #ababab26;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.btnRainbow {
+  background: linear-gradient(
+    90deg,
+    #4dd4f7 0%,
+    #9090fb 36.46%,
+    #ff6b81 71.35%,
+    #fbdf63 100%
+  );
+  border: none;
+  border-radius: 5px;
+  padding: 7px 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.profile {
+  width: 30%;
+  padding: 0 43px 39px;
+}
+
+.content {
+  width: 70%;
+}
+
+.vertical-line {
+  background: #6a6a6a4d;
+  height: 100%;
+  width: 1px;
+}
+
+.logo {
+  font-size: 30px;
+  padding: 1rem;
+  font-family: 'Rochester', cursive;
+  background: linear-gradient(
+    90deg,
+    #4dd4f7 1%,
+    #9090fb 10%,
+    #ff6b81 20%,
+    #fbdf63 30%,
+    #d9f0f4 70%
+  );
+
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.link {
+  text-decoration: none;
+}
+h2 {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.pff_line {
+  width: 1px;
+  height: 60px;
+  background: #6a6a6a4d;
+}
+.profile_btn_list_left_bottom {
+  display: flex;
+  margin-bottom: 30px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p.btn_list {
+  color: #fff;
+  margin-left: 1rem;
+}
+p.btn_list_inactive {
+  color: #ababab;
+  margin-left: 1rem;
+}
+
+.horizontal_line {
+  width: 100%;
+  height: 1px;
+  border: 1px solid #6a6a6a4d;
+  margin-bottom: 35px;
+}
+
+.content {
+  padding: 1rem 43px;
+}
+
+/*
+======================
+Navigation
+======================
+ */
+
+.nav_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.search {
+  background-color: #ababab26;
+  border-radius: 5px;
+  width: 400px;
+  padding: 7px 15px;
+  height: 42px;
+}
+
+input.search {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-left: 1rem;
+  width: 300px;
+  height: 18px;
+}
+input.search:focus {
+  outline: none;
+}
+
+p.plus_icon {
+  margin: 0;
+  padding: 0px 9px;
+  border-radius: 5px;
+  background: #00000040;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  margin-right: 1rem;
+}
+.create-post {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.img_nav_btn_list {
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+/*
+======================
+Feed
+======================
+ */
+
+.feed_container {
+  padding-top: 3rem;
+}
+h1.h1_content_title {
+  color: #fff;
+  font-family: 'Avenir Lt Std';
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.feed_content {
+  margin-top: 2rem;
+}
+/* Card */
+.card_item {
+  width: 300px;
+  height: 330px;
+  margin-top: 1rem;
+}
+
+img.card_img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.card_footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.card_user {
+  display: flex;
+}
+img.card_img_user {
+  border: 2px solid transparent;
+  margin: 0;
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(
+    90deg,
+    #4dd4f7 0%,
+    #9090fb 30.73%,
+    #ff6b81 68.75%,
+    #fbdf63 100%
+  );
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
+.card_lcm_list_icon {
+  display: flex;
+  justify-content: space-evenly;
+}
+.card_lcm_list_icon img {
+  width: 20px;
+  height: 17px;
+}
+
+p.like_total {
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Avenir Lt Std';
+  margin-top: 1rem;
+}
+
+/* Modal Feed */
+
+.modal-content {
+  width: 1200px !important;
+  left: 50%;
+  background: #1f1f1f !important;
+  transform: translateX(-50%);
+  border-radius: 10px !important;
+}
+.modal_feed {
+  display: flex;
+  width: 900px;
+  padding: 0 !important;
+}
+
+img.modal_feed_img {
+  height: 600px;
+  width: 490px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  object-fit: cover;
+}
+
+.comment_section {
+  position: relative;
+  padding: 3rem 2rem;
+  width: 50%;
+}
+
+p.caption {
+  display: block;
+  margin-left: 1rem;
+  color: #ababab;
+}
+
+.comment_lcm_list_icon img {
+  width: 20px;
+  height: 17px;
+}
+input.comment_input {
+  position: absolute;
+  bottom: 1rem;
+  width: 86%;
+  background: #5c5c5c;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 1rem;
+  color: #fff;
+}
+
+.modal_lcm {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+}
+/* Chat */
+
+input.chat_input {
+  position: absolute;
+  bottom: 2rem;
+  width: 65%;
+  height: 5%;
+  background: #ababab26;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 2rem;
+}
+
+input.chat_input::placeholder {
+  font-size: 18px;
+  color: #ababab;
+}
+
+/* edit profile */
+
+.edit_profile {
+  width: 100%;
+
+  padding: 3rem 1rem;
+}
+
+.edit_profile_content {
+  padding: 2rem 0;
+}
+
+.btn18 {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Avenir Lt Std';
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.input,
+.textarea {
+  font-family: 'Avenir Lt Std';
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 7px 1rem;
+  background: #d2d2d240;
+  border: 1px solid #d2d2d2;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 18px;
+}
+
+/* notif */
+
+.notif {
+  position: absolute;
+  background: #ababab;
+  padding: 1rem 2rem;
+  top: 3rem;
+  width: 300px;
+  right: 0rem;
+}
+p.comment {
+  color: #fff;
 }
