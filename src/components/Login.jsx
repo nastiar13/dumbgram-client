@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import { Modal, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import style from './Login.module.css';
+import { API } from '../config/api';
+import { UserContext } from '../context/userContext';
 
 function Login(props) {
+  const [state, dispatch] = useContext(UserContext);
   const [errorPass, setErrorPass] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  async function login(e) {
+    e.preventDefault();
+    try {
+      const response = await API.post('/login', {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
+      setTimeout(() => {
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: response.data.user,
+          token: response.data.token,
+        });
+      }, 1000);
+      setErrorPass(false);
+      setLoginSuccess(true);
+    } catch (error) {
+      setLoginSuccess(false);
+      setErrorPass(true);
+      console.log(error);
+    }
+  }
   return (
     <Modal
       {...props}
@@ -28,22 +56,24 @@ function Login(props) {
             Login Success, please wait!
           </Alert>
         )}
-        <form>
+        <form onSubmit={(e) => login(e)}>
           <input
-            // ref={emailRef}
+            ref={emailRef}
             className={style.input}
             type="email"
             placeholder="Email"
             required
           />
           <input
-            // ref={passwordRef}
+            ref={passwordRef}
             className={style.input}
             type="password"
             placeholder="Password"
             required
           />
-          <button className={style.btnSubmit}>Login</button>
+          <button type="submit" className={style.btnSubmit}>
+            Login
+          </button>
         </form>
       </Modal.Body>
       <Modal.Footer

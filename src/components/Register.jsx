@@ -1,10 +1,35 @@
 import { Modal, Alert } from 'react-bootstrap';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import style from './Login.module.css';
+import { API } from '../config/api';
 
 function Register(props) {
   const [alert, setAlert] = useState(false);
   const [dupAlert, setDupAlert] = useState(false);
+  const emailRef = useRef(null);
+  const nameRef = useRef(null);
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const register = async (e) => {
+    try {
+      e.preventDefault();
+      await API.post('register', {
+        email: emailRef.current.value,
+        name: nameRef.current.value,
+        username: usernameRef.current.value,
+        password: passwordRef.current.value,
+      });
+      setDupAlert(false);
+      setAlert(true);
+      setTimeout(() => {
+        props.here();
+      }, 1000);
+    } catch (error) {
+      setDupAlert(true);
+      setAlert(false);
+    }
+  };
   return (
     <Modal
       className={style.modalContainer}
@@ -33,30 +58,30 @@ function Register(props) {
             Your Email is already registered!
           </Alert>
         )}
-        <form>
+        <form onSubmit={(e) => register(e)}>
           <input
-            // ref={emailRef}
+            ref={emailRef}
             className={style.input}
             type="text"
             placeholder="Email"
             required
           />
           <input
-            // ref={fullnameRef}
+            ref={nameRef}
             className={style.input}
             type="text"
             placeholder="Name"
             required
           />
           <input
-            // ref={fullnameRef}
+            ref={usernameRef}
             className={style.input}
             type="text"
             placeholder="Username"
             required
           />
           <input
-            // ref={passwordRef}
+            ref={passwordRef}
             className={style.input}
             type="password"
             placeholder="Password"

@@ -1,14 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import style from './Profile.module.css';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
+import { UserContext } from '../context/userContext';
 
 function MyProfile(props) {
+  const [state, dispatch] = useContext(UserContext);
+
   const feedRef = useRef(null);
   const feedTitleRef = useRef(null);
   const exploreRef = useRef(null);
   const exploreTitleRef = useRef(null);
   const history = useHistory();
+
   function feedActiveBtn() {
     exploreRef.current.style.color = '#ababab';
     exploreTitleRef.current.style.color = '#ababab';
@@ -26,6 +30,12 @@ function MyProfile(props) {
     history.push('/');
   }
 
+  function logout() {
+    dispatch({
+      type: 'LOGOUT',
+    });
+  }
+
   return (
     <div className={style.my_profile_container}>
       <Link className="link" to="/">
@@ -40,30 +50,30 @@ function MyProfile(props) {
           />
         </Link>
         <img
-          src="/img/rectangle 4.png"
+          src={state.user.photo ? state.user.photo : '/img/user.png'}
           alt=""
           className={style.profilePicture}
         />
-        <h2 style={{ fontWeight: '700' }}>Lisa</h2>
-        <p style={{ color: '#AcABAB' }}>@lalalisa_m</p>
+        <h2 style={{ fontWeight: '700' }}>{state.user.name}</h2>
+        <p style={{ color: '#AcABAB' }}>@{state.user.username}</p>
         <div className={style.post_foll}>
           <div className={style.pff}>
             <h3 className={style.h3_pff}>Post</h3>
-            <p className={style.p_pff}>200</p>
+            <p className={style.p_pff}>{props.data.post}</p>
           </div>
           <div className="pff_line"></div>
           <div className={style.pff}>
             <h3 className={style.h3_pff}>Followers</h3>
-            <p className={style.p_pff}>51.2 M</p>
+            <p className={style.p_pff}>{props.data.followers}</p>
           </div>
           <div className="pff_line"></div>
           <div className={style.pff}>
             <h3 className={style.h3_pff}>Following</h3>
-            <p className={style.p_pff}>1</p>
+            <p className={style.p_pff}>{props.data.following}</p>
           </div>
         </div>
         <p className={style.user_description}>
-          Rapper in Black Pink, Brand Ambasador Penshoppe
+          {state.user.bio !== 'null' ? state.user.bio : ''}
         </p>
         <div className="horizontal_line"></div>
         <div onClick={feedActiveBtn} className="profile_btn_list_left_bottom">
@@ -123,8 +133,8 @@ function MyProfile(props) {
         </div>
 
         <div className="horizontal_line"></div>
-        <div className="profile_btn_list_left_bottom">
-          <img src="/img/logout.svg" alt="" />
+        <div onClick={logout} className="profile_btn_list_left_bottom">
+          <img src="/img/logout.svg" alt="logout" />
           <p style={{ marginBottom: 0 }} className="btn_list_inactive">
             Logout
           </p>
