@@ -2,27 +2,35 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function FeedModal(props) {
+function FeedModal({ show, onHide, item, like }) {
   return (
     <Modal
-      {...props}
+      show={show}
+      onHide={onHide}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdropClassName="modalContainer"
     >
       <Modal.Body className="modal_feed">
-        <img
-          className="modal_feed_img"
-          height="600"
-          src="/img/rectangle 3.png"
-          alt=""
-        />
+        <img className="modal_feed_img" height="600" src={item.url} alt="" />
+        <p
+          onClick={onHide}
+          style={{
+            color: 'white',
+            position: 'absolute',
+            right: '10px',
+            cursor: 'pointer',
+            zIndex: '100',
+          }}
+        >
+          X
+        </p>
         <div className="comment_section">
           <div className="card_user">
-            <Link to="/user/1">
+            <Link to={`/user/${item.post_owner.id}`}>
               <img
-                src="/img/rectangle 5.png"
+                src={item.post_owner.profile_picture}
                 alt=""
                 className="card_img_user"
               />
@@ -36,9 +44,9 @@ function FeedModal(props) {
                   display: 'block',
                 }}
               >
-                zayn
+                {item.post_owner.name}
               </p>
-              <p className="caption">To Begin Again..</p>
+              <p className="caption">{item.caption}</p>
             </div>
           </div>
           <div className="horizontal_line"></div>
@@ -48,7 +56,7 @@ function FeedModal(props) {
               <img src="/img/message-circle.svg" alt="" />
               <img src="/img/paper-plane.svg" alt="" />
             </div>
-            <p className="like_total">126.100 Like</p>
+            <p className="like_total">{like} Like</p>
           </div>
           <input
             type="text"

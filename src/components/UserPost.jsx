@@ -2,19 +2,20 @@ import React, { useEffect, useRef } from 'react';
 import CardItem from './CardItem';
 import Masonry from 'masonry-layout';
 
-function Feed(props) {
+function UserPost({ data }) {
   const grid = useRef(null);
+  console.log(data);
   useEffect(() => {
     new Masonry(grid.current, {
       itemSelector: '.grid_item',
       gutter: 20,
     });
-  }, [props.feeds]);
+  }, [data]);
   return (
     <div className="feed_container">
-      <h1 className="h1_content_title">Feed</h1>
+      <h1 className="h1_content_title">Post</h1>
       <div ref={grid} className="feed_content">
-        {props.feeds.map((item) => {
+        {data.map((item) => {
           return (
             <div className="grid_item" style={{ cursor: 'pointer' }}>
               <CardItem item={item} />
@@ -26,4 +27,4 @@ function Feed(props) {
   );
 }
 
-export default Feed;
+export default UserPost;

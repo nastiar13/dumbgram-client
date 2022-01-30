@@ -14,11 +14,20 @@ export default function Home() {
     following: [],
     followers: [],
   });
+  const [feeds, setFeeds] = useState([]);
+  const getFeeds = async () => {
+    try {
+      setFeeds(await (await API.get('/feeds-by-foll')).data.posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getUserData = async () => {
     try {
       const post = await API.get('/feeds/' + state.user.id);
       const following = await API.get('/following');
       const followers = await API.get('/followers');
+
       console.log(followers.data);
       setUserData({
         post: post.data.posts,
@@ -32,6 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     getUserData();
+    getFeeds();
   }, []);
   return (
     <div className="body" style={{ display: 'flex' }}>
@@ -49,7 +59,7 @@ export default function Home() {
       <div className="vertical-line"></div>
       <div className="content">
         <Navigation />
-        {feed ? <Feed /> : <Explore />}
+        {feed ? <Feed feeds={feeds} /> : <Explore />}
       </div>
     </div>
   );

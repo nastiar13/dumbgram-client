@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import style from './Profile.module.css';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
@@ -34,12 +34,12 @@ function UserProfile(props) {
       <section className={style.mainContent}>
         <img
           style={{ marginTop: '2rem' }}
-          src="/img/rectangle 5.png"
+          src={props.data.profile_picture}
           alt=""
           className={style.profilePicture}
         />
-        <h2 style={{ fontWeight: '700' }}>zayn</h2>
-        <p style={{ color: '#AcABAB' }}>@lalalisa_m</p>
+        <h2 style={{ fontWeight: '700' }}>{props.data.name}</h2>
+        <p style={{ color: '#AcABAB' }}>@{props.data.username}</p>
 
         <div
           style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}
@@ -52,22 +52,20 @@ function UserProfile(props) {
         <div className={style.post_foll}>
           <div className={style.pff}>
             <h3 className={style.h3_pff}>Post</h3>
-            <p className={style.p_pff}>200</p>
+            <p className={style.p_pff}>{props.posts}</p>
           </div>
           <div className="pff_line"></div>
           <div className={style.pff}>
             <h3 className={style.h3_pff}>Followers</h3>
-            <p className={style.p_pff}>51.2 M</p>
+            <p className={style.p_pff}>{props.followers}</p>
           </div>
           <div className="pff_line"></div>
           <div className={style.pff}>
             <h3 className={style.h3_pff}>Following</h3>
-            <p className={style.p_pff}>1</p>
+            <p className={style.p_pff}>{props.following}</p>
           </div>
         </div>
-        <p className={style.user_description}>
-          Rapper in Black Pink, Brand Ambasador Penshoppe
-        </p>
+        <p className={style.user_description}>{props.data.description}</p>
         <div className="horizontal_line"></div>
         <div onClick={feedActiveBtn} className="profile_btn_list_left_bottom">
           <svg
