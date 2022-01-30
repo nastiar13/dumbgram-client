@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { API } from '../config/api';
 
 function FeedModal({ show, onHide, item, like }) {
+  const inputComment = useRef(null);
+  const [comments, setComments] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const getComments = async () => {
+    try {
+      setComments((await API.get('/comment/' + item.id)).data.response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addComment = async (e) => {
+    try {
+      if (e.key === 'Enter') {
+        await API.post('/comment/' + item.id, {
+          comment: inputComment.current.value,
+        });
+        inputComment.current.value = '';
+        setCounter(counter + 1);
+      }
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getComments();
+  }, [counter]);
   return (
     <Modal
       show={show}
@@ -35,6 +60,7 @@ function FeedModal({ show, onHide, item, like }) {
                 className="card_img_user"
               />
             </Link>
+
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <p
                 style={{
@@ -50,6 +76,37 @@ function FeedModal({ show, onHide, item, like }) {
             </div>
           </div>
           <div className="horizontal_line"></div>
+
+          <div className="comment">
+            {comments.map((comm) => {
+              return (
+                <div className="card_user">
+                  <Link to={`/user/${item.post_owner.id}`}>
+                    <img
+                      src={comm.user_comment.profile_picture}
+                      alt=""
+                      className="card_img_user"
+                    />
+                  </Link>
+
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <p
+                      style={{
+                        color: '#fff',
+                        marginLeft: '1rem',
+                        marginBottom: 0,
+                        display: 'block',
+                      }}
+                    >
+                      {comm.user_comment.name}
+                    </p>
+                    <p className="caption">{comm.comment}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
           <div className="card_lcm modal_lcm">
             <div className="comment_lcm_list_icon">
               <img src="/img/heart.svg" alt="" />
@@ -59,9 +116,11 @@ function FeedModal({ show, onHide, item, like }) {
             <p className="like_total">{like} Like</p>
           </div>
           <input
+            ref={inputComment}
             type="text"
             className="comment_input"
             placeholder="Comments.."
+            onKeyPress={(e) => addComment(e)}
           />
         </div>
       </Modal.Body>

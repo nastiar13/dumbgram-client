@@ -5,6 +5,7 @@ import FeedModal from './FeedModal';
 function CardItem({ item }) {
   const [modalShow, setModalShow] = useState(false);
   const [like, setLike] = useState([]);
+
   const getLike = async () => {
     try {
       setLike(await (await API.get('/like/' + item.id)).data.like);
@@ -12,6 +13,7 @@ function CardItem({ item }) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getLike();
   }, []);
