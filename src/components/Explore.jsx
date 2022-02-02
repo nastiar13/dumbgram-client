@@ -1,15 +1,43 @@
-import React from 'react';
-
+import Masonry from 'masonry-layout';
+import React, { useEffect, useRef, useState } from 'react';
+import { API } from '../config/api';
+import imagesLoaded from 'imagesloaded';
+import ExploreItem from './ExploreItem';
+let msnry;
 function Explore() {
+  const [feeds, setFeeds] = useState([]);
+  const grid = useRef(null);
+  setTimeout(() => {
+    imagesLoaded('finish', () => {
+      msnry.layout();
+    });
+  }, 10);
+
+  const getFeeds = async () => {
+    try {
+      setFeeds(await (await API.get('/feeds')).data.posts);
+      msnry = new Masonry(grid.current, {
+        itemSelector: '.grid_item',
+        gutter: 10,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getFeeds();
+  }, []);
   return (
     <div className="feed_container">
       <h1 className="h1_content_title">Explore</h1>
-      <div className="feed_content">
-        <img
-          style={{ width: 300, height: 400, borderRadius: 5 }}
-          src="/img/rectangle 3.png"
-          alt=""
-        />
+      <div ref={grid} className="feed_content">
+        {feeds.map((item) => {
+          return (
+            <div className="grid_item" style={{ cursor: 'pointer' }}>
+              <ExploreItem item={item} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

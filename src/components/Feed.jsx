@@ -1,22 +1,43 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CardItem from './CardItem';
 import Masonry from 'masonry-layout';
-
-function Feed(props) {
+import imagesloaded from 'imagesloaded';
+import { API } from '../config/api';
+let msnry;
+function Feed() {
   const grid = useRef(null);
+  const [feeds, setFeeds] = useState([]);
+  imagesloaded('progress', () => {
+    msnry.layout();
+  });
+
+  const getFeeds = async () => {
+    try {
+      setFeeds(await (await API.get('/feeds-by-foll')).data.posts);
+      msnry = new Masonry(grid.current, {
+        itemSelector: '.grid_item',
+        gutter: 20,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    new Masonry(grid.current, {
-      itemSelector: '.grid_item',
-      gutter: 20,
-    });
-  }, [props.feeds]);
+    getFeeds();
+  }, []);
+
   return (
     <div className="feed_container">
       <h1 className="h1_content_title">Feed</h1>
       <div ref={grid} className="feed_content">
-        {props.feeds.map((item) => {
+        {feeds.map((item) => {
           return (
-            <div className="grid_item" style={{ cursor: 'pointer' }}>
+            <div
+              key={item.id}
+              className="grid_item"
+              style={{ cursor: 'pointer' }}
+            >
               <CardItem item={item} />
             </div>
           );

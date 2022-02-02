@@ -5,7 +5,6 @@
 }
 .body {
   width: 100%;
-  max-height: 140vh;
   background: #0b0b0b;
 }
 
@@ -172,7 +171,7 @@ Feed
 
 .feed_container {
   padding-top: 3rem;
-  max-height: 130vh;
+  height: 100%;
 }
 h1.h1_content_title {
   color: #fff;
@@ -183,29 +182,31 @@ h1.h1_content_title {
 
 .feed_content {
   margin-top: 2rem;
-  height: 90vh;
-  overflow: auto;
+  height: 80vh !important;
+  overflow-y: scroll;
+  scrollbar-width: thin;
 }
 .grid_item {
-  margin-bottom: 5rem;
+  margin-bottom: 0;
 }
 /* Card */
 .card_item {
   width: 300px;
-  height: 270px;
+  height: auto;
   margin-top: 1rem;
 }
 
 img.card_img {
-  object-fit: cover;
   width: 100%;
   height: 100%;
+  object-fit: fill;
   border-radius: 5px;
 }
 .card_footer {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
+  cursor: default;
 }
 .card_user {
   display: flex;
@@ -258,11 +259,11 @@ p.like_total {
 }
 
 img.modal_feed_img {
-  height: 600px;
-  width: 490px;
+  min-height: 600px;
+  min-width: 490px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .comment_section {
@@ -271,6 +272,12 @@ img.modal_feed_img {
   width: 50%;
 }
 
+.comment {
+  width: 300px;
+  height: 400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
 p.caption {
   display: block;
   margin-left: 1rem;
