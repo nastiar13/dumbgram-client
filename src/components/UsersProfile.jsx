@@ -1,14 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import style from './Profile.module.css';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
+import { API } from '../config/api';
 
 function UserProfile(props) {
   const feedRef = useRef(null);
   const feedTitleRef = useRef(null);
   const exploreRef = useRef(null);
   const exploreTitleRef = useRef(null);
+  const [isFollow, setIsFollow] = useState(false);
+  const { id } = useParams();
   const history = useHistory();
+
   function feedActiveBtn() {
     exploreRef.current.style.color = '#ababab';
     exploreTitleRef.current.style.color = '#ababab';
@@ -25,6 +29,38 @@ function UserProfile(props) {
     props.setFeed && props.setFeed(false);
     history.push('/');
   }
+
+  const follow = async () => {
+    try {
+      if (!isFollow) {
+        await API.post('/follow/' + id);
+        setIsFollow(true);
+        props.getPosts();
+      } else {
+        await API.delete('/follow/' + id);
+        setIsFollow(false);
+        props.getPosts();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getIsFollow = async () => {
+    try {
+      const response = await (
+        await API.get('/is-follow/' + props.id)
+      ).data.response;
+      console.log(props.id);
+      if (response) {
+        setIsFollow(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getIsFollow();
+  }, []);
 
   return (
     <div className={style.my_profile_container}>
@@ -46,7 +82,15 @@ function UserProfile(props) {
           className="btn_group_message_follow"
         >
           <button className="btnRainbow btn18">Message</button>
-          <button className="btn_dark btn18">Unfollow</button>
+          {isFollow ? (
+            <button onClick={follow} className="btn_dark btn18">
+              Unfollow
+            </button>
+          ) : (
+            <button onClick={follow} className="btn_light_blue btn18">
+              Follow
+            </button>
+          )}
         </div>
 
         <div className={style.post_foll}>

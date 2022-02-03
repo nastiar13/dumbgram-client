@@ -34,6 +34,8 @@ export default function Users() {
     <div className="body" style={{ display: 'flex' }}>
       <div className="profile">
         <UserProfile
+          getPosts={() => getPosts()}
+          id={id}
           data={data.user}
           followers={data.followers?.length}
           following={data.following?.length}

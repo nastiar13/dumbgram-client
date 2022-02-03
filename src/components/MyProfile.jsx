@@ -27,7 +27,6 @@ function MyProfile(props) {
     exploreRef.current.style.color = '#fff';
     exploreTitleRef.current.style.color = '#fff';
     props.setFeed && props.setFeed(false);
-    history.push('/');
   }
 
   function logout() {

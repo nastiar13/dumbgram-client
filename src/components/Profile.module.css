@@ -8,6 +8,7 @@
   margin: 0 auto;
   width: 150px;
   height: 150px;
+  object-fit: fill;
   background: linear-gradient(
     90deg,
     #4dd4f7 0%,

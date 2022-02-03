@@ -7,9 +7,9 @@ let msnry;
 function Feed() {
   const grid = useRef(null);
   const [feeds, setFeeds] = useState([]);
-  imagesloaded('progress', () => {
+  const handleLoad = () => {
     msnry.layout();
-  });
+  };
 
   const getFeeds = async () => {
     try {
@@ -34,6 +34,7 @@ function Feed() {
         {feeds.map((item) => {
           return (
             <div
+              onLoad={handleLoad}
               key={item.id}
               className="grid_item"
               style={{ cursor: 'pointer' }}

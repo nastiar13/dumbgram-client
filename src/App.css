@@ -25,6 +25,12 @@
   border-radius: 5px;
   padding: 7px 1rem;
 }
+.btn_light_blue {
+  background: #59a6d6ef;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 2rem;
+}
 
 .btnRainbow {
   background: linear-gradient(
@@ -182,7 +188,7 @@ h1.h1_content_title {
 
 .feed_content {
   margin-top: 2rem;
-  height: 80vh !important;
+  height: 100vh !important;
   overflow-y: scroll;
   scrollbar-width: thin;
 }
@@ -224,7 +230,6 @@ img.card_img_user {
     #fbdf63 100%
   );
   border-radius: 50%;
-  margin-bottom: 2rem;
 }
 
 .card_lcm_list_icon {
@@ -368,4 +373,49 @@ input.chat_input::placeholder {
 }
 p.comment {
   color: #fff;
+}
+
+/* chat */
+.conv_list {
+  width: 100%;
+  height: 90vh;
+  padding: 1rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.conversations {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  cursor: pointer;
+}
+.conversation_detail {
+  margin-left: 1.25rem;
+}
+img.profile_pict_chat {
+  width: 45px;
+  height: 45px;
+}
+h5.conv_name {
+  color: #fff;
+  margin: 0;
+}
+.last_msg {
+  color: #ababab;
+  margin: 0;
+}
+
+.unread_msg {
+  position: absolute;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 50%;
+  background-color: #908a8a;
+  border: 2px solid rgb(209, 200, 200);
 }

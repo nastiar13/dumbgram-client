@@ -7,11 +7,9 @@ let msnry;
 function Explore() {
   const [feeds, setFeeds] = useState([]);
   const grid = useRef(null);
-  setTimeout(() => {
-    imagesLoaded('finish', () => {
-      msnry.layout();
-    });
-  }, 10);
+  const handleLoad = () => {
+    msnry.layout();
+  };
 
   const getFeeds = async () => {
     try {
@@ -33,7 +31,11 @@ function Explore() {
       <div ref={grid} className="feed_content">
         {feeds.map((item) => {
           return (
-            <div className="grid_item" style={{ cursor: 'pointer' }}>
+            <div
+              onLoad={handleLoad}
+              className="grid_item"
+              style={{ cursor: 'pointer' }}
+            >
               <ExploreItem item={item} />
             </div>
           );

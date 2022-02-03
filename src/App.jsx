@@ -38,6 +38,7 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
+
         <Route path="/message">
           <Chat />
         </Route>

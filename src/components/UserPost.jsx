@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CardItem from './CardItem';
 import Masonry from 'masonry-layout';
-
+let msnry;
 function UserPost({ data }) {
   const grid = useRef(null);
-  console.log(data);
+  const handleLoad = () => {
+    msnry.layout();
+  };
   useEffect(() => {
-    new Masonry(grid.current, {
+    msnry = new Masonry(grid.current, {
       itemSelector: '.grid_item',
       gutter: 20,
     });
@@ -17,7 +19,11 @@ function UserPost({ data }) {
       <div ref={grid} className="feed_content">
         {data.map((item) => {
           return (
-            <div className="grid_item" style={{ cursor: 'pointer' }}>
+            <div
+              onLoad={handleLoad}
+              className="grid_item"
+              style={{ cursor: 'pointer' }}
+            >
               <CardItem item={item} />
             </div>
           );

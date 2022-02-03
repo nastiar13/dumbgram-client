@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { API } from '../config/api';
-
+import { UserContext } from '../context/userContext';
 function FeedModal({
   show,
   onHide,
@@ -12,6 +12,7 @@ function FeedModal({
   setIsLikeProps,
   isLike,
 }) {
+  const [state] = useContext(UserContext);
   const inputComment = useRef(null);
   const [comments, setComments] = useState([]);
   const [counter, setCounter] = useState(0);
@@ -65,6 +66,7 @@ function FeedModal({
       }
     } catch (error) {}
   };
+  console.log(item);
   useEffect(() => {
     getComments();
   }, [counter]);
@@ -102,7 +104,13 @@ function FeedModal({
         </p>
         <div className="comment_section">
           <div className="card_user">
-            <Link to={`/user/${item.post_owner.id}`}>
+            <Link
+              to={
+                state.user.id === parseInt(item.post_owner.id)
+                  ? '/'
+                  : `/user/${item.post_owner.id}`
+              }
+            >
               <img
                 loading="lazy"
                 src={item.post_owner.profile_picture}
