@@ -14,7 +14,7 @@ export default function Home() {
     following: [],
     followers: [],
   });
-
+  console.log('a');
   const getUserData = async () => {
     try {
       const post = await API.get('/feeds/' + state.user.id);
@@ -30,7 +30,7 @@ export default function Home() {
       console.log(error);
     }
   };
-  console.log(userData);
+
   useEffect(() => {
     getUserData();
   }, []);

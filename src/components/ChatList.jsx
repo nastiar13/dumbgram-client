@@ -1,40 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { io } from 'socket.io-client';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../context/userContext';
-let socket;
 
-function ChatList() {
+function ChatList({ data, setAnyData }) {
   const [state] = useContext(UserContext);
-  const [conversations, setConversations] = useState([]);
-  console.log(conversations);
-  useEffect(() => {
-    socket = io('http://localhost:5000', {
-      auth: {
-        token: localStorage.token,
-      },
-    });
-    loadConversations();
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-  const loadConversations = () => {
-    socket.emit('load conversations', { user_id: state.user.id });
-    socket.on('conversations', (conversationsData) => {
-      setConversations(conversationsData);
-    });
-  };
+  useEffect(() => {}, [data]);
   return (
     <div>
-      <Link className="link" to="/">
-        <h1 className="logo">Dumbgram</h1>
-      </Link>
-      <section className="conv_list">
-        {conversations.map((conv) => {
-          const data = conv.from_user === state.user.id ? conv.to : conv.from;
-          return (
-            <div className="conversations" key={conv.id}>
+      {data.map((conv) => {
+        const data = conv.from_user === state.user.id ? conv.to : conv.from;
+
+        return (
+          <div onClick={() => setAnyData(conv.id, data)} key={conv.id}>
+            <div className="conversations">
               <img
                 src={data.profile_picture}
                 className="card_img_user profile_pict_chat"
@@ -42,13 +19,13 @@ function ChatList() {
               />
               <div className="conversation_detail">
                 <h5 className="conv_name">{data.name}</h5>
-                <p className="last_msg">last messages</p>
+                <p className="last_msg">hi</p>
               </div>
               <div className="unread_msg">1</div>
             </div>
-          );
-        })}
-      </section>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -66,7 +66,7 @@ function FeedModal({
       }
     } catch (error) {}
   };
-  console.log(item);
+
   useEffect(() => {
     getComments();
   }, [counter]);

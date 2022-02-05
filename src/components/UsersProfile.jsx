@@ -29,7 +29,16 @@ function UserProfile(props) {
     props.setFeed && props.setFeed(false);
     history.push('/');
   }
-
+  const toChat = async () => {
+    try {
+      const response = await API.post('/inboxs/' + id);
+      localStorage.setItem('convId', response.data.convId);
+      console.log(response);
+      history.push('/message');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const follow = async () => {
     try {
       if (!isFollow) {
@@ -81,7 +90,9 @@ function UserProfile(props) {
           style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}
           className="btn_group_message_follow"
         >
-          <button className="btnRainbow btn18">Message</button>
+          <button onClick={toChat} className="btnRainbow btn18">
+            Message
+          </button>
           {isFollow ? (
             <button onClick={follow} className="btn_dark btn18">
               Unfollow
