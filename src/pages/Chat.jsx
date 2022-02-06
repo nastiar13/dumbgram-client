@@ -33,6 +33,13 @@ function Chat() {
   const setAnyData = (id, data) => {
     setConvId(id);
     setSubject(data);
+
+    // socket.emit('message was readed', { convId: id, target_id: data.id });
+    // socket.on('message updated', () => {
+    //   console.log('aa');
+    // });
+    // loadConversations();
+    console.log('set any dataaaaaaaaa');
   };
 
   const getSubject = async (convId) => {
@@ -50,6 +57,7 @@ function Chat() {
   const loadConversations = () => {
     socket.emit('load conversations', { user_id: state.user.id });
     socket.on('conversations', (conversationsData) => {
+      console.log(conversationsData);
       setConversations(conversationsData);
     });
   };

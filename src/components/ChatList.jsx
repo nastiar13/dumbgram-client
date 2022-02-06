@@ -8,7 +8,9 @@ function ChatList({ data, setAnyData }) {
     <div>
       {data.map((conv) => {
         const data = conv.from_user === state.user.id ? conv.to : conv.from;
-
+        // const unread = conv.unread.filter(
+        //   (item) => item.to_user === state.user.id,
+        // );
         return (
           <div onClick={() => setAnyData(conv.id, data)} key={conv.id}>
             <div className="conversations">
@@ -19,9 +21,11 @@ function ChatList({ data, setAnyData }) {
               />
               <div className="conversation_detail">
                 <h5 className="conv_name">{data.name}</h5>
-                <p className="last_msg">hi</p>
+                <p className="last_msg">{conv.messages[0].message_body}</p>
               </div>
-              <div className="unread_msg">1</div>
+              {/* {unread.length > 0 && (
+                <div className="unread_msg">{unread.length}</div>
+              )} */}
             </div>
           </div>
         );

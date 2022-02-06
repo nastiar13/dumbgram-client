@@ -14,7 +14,10 @@ function Message({ convId, subject, loadConversations }) {
       };
       socket.emit('send message', data);
       e.target.value = '';
-
+      socket.on('new message', () => {
+        socket.emit('load messages', { convId });
+        loadConversations();
+      });
       element.current.scrollTo(0, element.current.scrollHeight + 40);
     }
   };
@@ -39,12 +42,7 @@ function Message({ convId, subject, loadConversations }) {
       }
     }
   }, [convId]);
-  useEffect(() => {
-    socket.on('new message', () => {
-      socket.emit('load messages', { convId });
-      loadConversations();
-    });
-  }, [messages]);
+
   if (convId === null || localStorage.chatSubject) {
     return (
       <div>
