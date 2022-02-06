@@ -20,7 +20,7 @@ function Navigation() {
           />
           {notif && (
             <div className="notif">
-              {' '}
+              <div className="triangle"></div>
               <Notification />
             </div>
           )}
