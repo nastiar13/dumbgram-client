@@ -17,7 +17,6 @@ function Post() {
       const post = await API.get('/feeds/' + state.user.id);
       const following = await API.get('/following');
       const followers = await API.get('/followers');
-      console.log(followers.data);
       setUserData({
         post: post.data.posts,
         following: following.data.following,

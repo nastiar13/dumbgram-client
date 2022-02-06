@@ -22,7 +22,6 @@ function Chat() {
     loadConversations();
     if (localStorage.convId) {
       setConvId(localStorage.convId);
-      console.log(conversations);
       getSubject(localStorage.convId);
     }
     return () => {
@@ -39,7 +38,6 @@ function Chat() {
     //   console.log('aa');
     // });
     // loadConversations();
-    console.log('set any dataaaaaaaaa');
   };
 
   const getSubject = async (convId) => {
@@ -57,7 +55,6 @@ function Chat() {
   const loadConversations = () => {
     socket.emit('load conversations', { user_id: state.user.id });
     socket.on('conversations', (conversationsData) => {
-      console.log(conversationsData);
       setConversations(conversationsData);
     });
   };
@@ -77,8 +74,8 @@ function Chat() {
       </div>
 
       <div className="vertical-line" />
-      <div className="content" style={{ marginTop: '2rem' }}>
-        {/* <Navigation /> */}
+      <div className="content">
+        <Navigation />
         <Message
           loadConversations={() => loadConversations()}
           convId={convId}

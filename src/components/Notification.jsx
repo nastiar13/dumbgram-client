@@ -17,14 +17,13 @@ function Notification() {
     socket.emit('load notif');
     socket.on('notif', (data) => {
       setNotif(data);
-      console.log(data);
     });
   }, []);
   return (
     <div className="dropdown">
       {notif.map((item) => {
         return (
-          <div className="card_user">
+          <div key={item.id} className="card_user">
             <img
               src={item.user_comment.profile_picture}
               alt=""

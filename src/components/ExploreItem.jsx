@@ -6,7 +6,6 @@ function ExploreItem({ item }) {
   const [modalShow, setModalShow] = useState(false);
   const [like, setLike] = useState([]);
   const [isLike, setIsLike] = useState(false);
-  console.log(item);
   const getLike = async () => {
     try {
       setLike(await (await API.get('/like/' + item.id)).data.like);

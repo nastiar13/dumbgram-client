@@ -15,7 +15,6 @@ function EditProfile() {
       ...data,
       [e.target.name.toLowerCase()]: e.target.value,
     });
-    console.log(photoRef.current.files);
   };
   const handleSubmit = async (e) => {
     try {

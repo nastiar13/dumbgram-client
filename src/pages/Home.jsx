@@ -14,7 +14,6 @@ export default function Home() {
     following: [],
     followers: [],
   });
-  console.log('a');
   const getUserData = async () => {
     try {
       const post = await API.get('/feeds/' + state.user.id);
