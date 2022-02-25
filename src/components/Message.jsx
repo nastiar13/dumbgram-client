@@ -69,7 +69,7 @@ function Message({ convId, subject, loadConversations }) {
         <h4 style={{ color: 'white', marginLeft: '1rem' }}>{subject.name}</h4>
       </div>
       <div ref={element} className="messages_container">
-        {messages.map((msg) => {
+        {messages?.map((msg) => {
           if (msg.from_user === state.user.id) {
             return (
               <p key={msg.id} className="from_me message_item">

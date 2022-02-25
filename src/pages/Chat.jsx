@@ -36,8 +36,9 @@ function Chat() {
     // socket.emit('message was readed', { convId: id, target_id: data.id });
     // socket.on('message updated', () => {
     //   console.log('aa');
+    //  loadConversations();
     // });
-    // loadConversations();
+    //
   };
 
   const getSubject = async (convId) => {

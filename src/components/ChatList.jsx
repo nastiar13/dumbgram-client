@@ -21,7 +21,11 @@ function ChatList({ data, setAnyData }) {
               />
               <div className="conversation_detail">
                 <h5 className="conv_name">{data.name}</h5>
-                <p className="last_msg">{conv.messages[0].message_body}</p>
+                {conv.messages[0] === undefined ? (
+                  <p className="last_msg">Click here to start conversation</p>
+                ) : (
+                  <p className="last_msg">{conv.messages[0]?.message_body}</p>
+                )}
               </div>
               {/* {unread.length > 0 && (
                 <div className="unread_msg">{unread.length}</div>
